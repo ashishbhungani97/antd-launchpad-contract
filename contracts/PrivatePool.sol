@@ -573,7 +573,7 @@ contract PrivatePool is OwnableUpgradeable, IPool, ReentrancyGuardUpgradeable {
      function getPoolInfo() external override view returns (address, uint8[] memory , uint256[] memory , string memory , string memory , string memory){
        
         uint8[] memory state = new uint8[](3);
-        uint256[] memory info = new uint256[](11);
+        uint256[] memory info = new uint256[](12);
         
         state[0] = uint8(poolState);
         state[1] = uint8(poolType);
@@ -589,6 +589,7 @@ contract PrivatePool is OwnableUpgradeable, IPool, ReentrancyGuardUpgradeable {
         info[8] = 0;
         info[9] = 0;
         info[10] = 0;
+        info[11] = 0;
        
        return (address(0) , state , info , '' , '' , poolDetails);
     }

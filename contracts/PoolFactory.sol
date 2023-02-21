@@ -312,7 +312,7 @@ interface IPrivatePool {
 interface IFairPool {
     function initialize(
         address[7] memory _addrsArray, 
-        uint256[9] memory _uint256Array, 
+        uint256[11] memory _uint256Array, 
         string memory _poolDetails,
         uint256 _withdrawFees
     ) external;
@@ -447,10 +447,10 @@ contract PoolFactory is OwnableUpgradeable,ReentrancyGuardUpgradeable{
 
     function initialize() external initializer {
         __Ownable_init();
-        presaleAddress = 0x249fA3946efB929754E64498C7D1DA8A92cF0ec7;
-        PrivatesaleAddress = 0x6A3EFEe881795433b69D2b9ea14F24C70973FBba;
-        fairlaunchAddress = 0x4CAdcEb7a321989D1F4b9157823134a6a6D9E44E;
-        poolManager = 0xe805E699AbDd919D78608A3f40600ddb9610888c;
+        presaleAddress = 0x8Bf676ef206C25283722a40D0F978Cd8f21022aC;
+        PrivatesaleAddress = 0xDE410C1E5d9a622122140a7D8E7d07Ec607D1dAf;
+        fairlaunchAddress = 0xaDBEbb3356F3DE8Ac82E71bcA827528Ef1543978;
+        poolManager = 0x7e96590D8924E3ee0530a438B59D1342eAEfcBa5;
         lockContract = 0x5EEb4792c5A39654bdD6bB91bE1D29f3acF32bf3;
         adminWallet = payable(0xAd5292D3D35F57CC0D7876cfD7B583DC99637b0d);
         presaleCreatePrice = 10000000000000000;
@@ -563,7 +563,7 @@ contract PoolFactory is OwnableUpgradeable,ReentrancyGuardUpgradeable{
 
     function createPresaleSale(
         address[2] memory _addressArr, 
-        uint256 [15] memory _uint256Arr, 
+        uint256 [16] memory _uint256Arr, 
         string memory _poolDetails,
         bool _whitelisting
     ) external payable _checkPreRequirement(1) {
@@ -640,7 +640,7 @@ contract PoolFactory is OwnableUpgradeable,ReentrancyGuardUpgradeable{
     function initalizeFairClone(
         address _pair,
         address[7] memory _addrsArray, 
-        uint256[9] memory _uint256Array, 
+        uint256[11] memory _uint256Array, 
         string memory _poolDetails
     ) internal _checkTokeneEligible(_addrsArray[0],_addrsArray[1]) {
 
@@ -654,7 +654,7 @@ contract PoolFactory is OwnableUpgradeable,ReentrancyGuardUpgradeable{
 
     function createFairSale(
         address[2] memory _addrsArray, 
-        uint256[9] memory _uint256Array, 
+        uint256[11] memory _uint256Array, 
         string memory _poolDetails
     ) external payable _checkPreRequirement(3) {
         _checkfees(fairlaunchCreatePrice);

@@ -541,9 +541,6 @@ contract PresalePool is OwnableUpgradeable, IPool , ReentrancyGuardUpgradeable {
     uint256 public LockId;
 
     uint256 private tvl;
-
-    bool public completedKyc;
-
     mapping(address => uint256) public contributionOf;
     mapping(address => uint256) public purchasedOf;
     mapping(address => uint256) public claimedOf;
@@ -724,7 +721,7 @@ contract PresalePool is OwnableUpgradeable, IPool , ReentrancyGuardUpgradeable {
     function getPoolInfo() external override view returns (address, uint8[] memory , uint256[] memory , string memory , string memory , string memory){
        
         uint8[] memory state = new uint8[](3);
-        uint256[] memory info = new uint256[](11);
+        uint256[] memory info = new uint256[](12);
         
         state[0] = uint8(poolState);
         state[1] = uint8(poolType);
@@ -740,6 +737,7 @@ contract PresalePool is OwnableUpgradeable, IPool , ReentrancyGuardUpgradeable {
         info[8] = liquidityListingRate;
         info[9] = liquidityPercent;
         info[10] = liquidityUnlockTime;
+        info[11] = liquidityLockTime;
        
        return (token , state , info , IERC20MetadataUpgradeable(token).name() , IERC20MetadataUpgradeable(token).symbol() , poolDetails);
     }
@@ -974,11 +972,6 @@ contract PresalePool is OwnableUpgradeable, IPool , ReentrancyGuardUpgradeable {
         emit PoolUpdated(block.timestamp);
     }
 
-    function updateCompletedKyc(bool completed_) external onlyOwner {
-        completedKyc = completed_;
-        emit KycUpdated(completed_, block.timestamp);
-    }
-
     function setGovernance(address governance_) external override onlyOwner {
         governance = governance_;
     }
@@ -1000,10 +993,6 @@ contract PresalePool is OwnableUpgradeable, IPool , ReentrancyGuardUpgradeable {
 
     function convert(uint256 amountInWei) public view returns (uint256) {
         return PoolLibrary.convertCurrencyToToken(amountInWei, rate);
-    }
-
-    function getUpdatedState() public view returns (uint256, uint8, bool, uint256, string memory) {
-        return (totalRaised, uint8(poolState), completedKyc, liquidityUnlockTime, poolDetails);
     }
 
     function userAvalibleClaim(address _userAddress) public view returns (uint256){

@@ -261,7 +261,7 @@ interface IPoolManager {
 interface IPool {
     function initialize(
         address[7] memory _addrsArray, 
-        uint256[9] memory _uint256Array, 
+        uint256[11] memory _uint256Array, 
         string memory _poolDetails,
         uint256 _withdrawFees
     ) external;
@@ -368,6 +368,8 @@ contract FairPool is OwnableUpgradeable, IPool , ReentrancyGuardUpgradeable {
     address public token;
     uint256 public rate;
     uint256 public softCap;
+    uint256 public maxContribution;
+    bool public isMaxBuyLimit;
     bool public audit;
     bool public kyc;
     string public auditLink;
@@ -433,7 +435,7 @@ contract FairPool is OwnableUpgradeable, IPool , ReentrancyGuardUpgradeable {
 
     function initialize(
         address[7] memory _addrsArray, 
-        uint256[9] memory _uint256Array, 
+        uint256[11] memory _uint256Array, 
         string memory _poolDetails,
         uint256 _withdrawFees
     ) external override  initializer {
@@ -474,6 +476,8 @@ contract FairPool is OwnableUpgradeable, IPool , ReentrancyGuardUpgradeable {
         poolType = PoolType.fairsale;
         feesWithdraw = _withdrawFees;
         lockContract = _addrsArray[6];
+        maxContribution = _uint256Array[9];
+        isMaxBuyLimit = _uint256Array[10] == 1 ? true : false;
     }
 
     function contribute() public payable inProgress{
@@ -482,6 +486,9 @@ contract FairPool is OwnableUpgradeable, IPool , ReentrancyGuardUpgradeable {
         
         if (contributionOf[msg.sender] == 0) {
             IPoolManager(manager).recordContribution(msg.sender, address(this));
+        }
+        if(isMaxBuyLimit){
+            require(userTotalContribution <= maxContribution, "Contribute more than allowed");
         }
         contributionOf[msg.sender] = userTotalContribution;
         totalRaised = totalRaised.add(msg.value);
@@ -620,7 +627,7 @@ contract FairPool is OwnableUpgradeable, IPool , ReentrancyGuardUpgradeable {
     function getPoolInfo() external override view returns (address, uint8[] memory , uint256[] memory , string memory , string memory , string memory){
        
         uint8[] memory state = new uint8[](3);
-        uint256[] memory info = new uint256[](11);
+        uint256[] memory info = new uint256[](12);
         
         state[0] = uint8(poolState);
         state[1] = uint8(poolType);
@@ -636,6 +643,7 @@ contract FairPool is OwnableUpgradeable, IPool , ReentrancyGuardUpgradeable {
         info[8] = 0;
         info[9] = liquidityPercent;
         info[10] = liquidityUnlockTime;
+        info[11] = liquidityLockTime;
        return (token , state , info , IERC20MetadataUpgradeable(token).name() , IERC20MetadataUpgradeable(token).symbol() , poolDetails);
     }
 

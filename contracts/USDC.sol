@@ -1,13 +1,4 @@
-/**
- *Submitted for verification at testnet.snowtrace.io on 2022-10-08
-*/
-
 // SPDX-License-Identifier: MIT
-
-// File: @openzeppelin/contracts/utils/Context.sol
-
-
-// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)
 
 pragma solidity ^0.8.0;
 
@@ -624,7 +615,7 @@ pragma solidity ^0.8.4;
 
 
 contract USDC is ERC20, Ownable {
-    constructor() ERC20("USDC", "USDC") {
+    constructor() ERC20("TESTTOKEN", "TESTTOKENAVX") {
         _mint(msg.sender, 1000000 * 10 ** decimals());
     }
 

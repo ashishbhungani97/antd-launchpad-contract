@@ -297,6 +297,7 @@ contract PoolManager is OwnableUpgradeable, IPoolManager {
         uint256 liquidityListingRate;
         uint256 liquidityPercent;
         uint256 liquidityUnlockTime;
+        uint256 liquidityLockTime;
         string name;
         string symbol;
         string poolDetails;
@@ -513,6 +514,7 @@ contract PoolManager is OwnableUpgradeable, IPoolManager {
                         info[8],
                         info[9],
                         info[10],
+                        info[11],
                         name,
                         symbol,
                         poolDetails
@@ -579,6 +581,7 @@ contract PoolManager is OwnableUpgradeable, IPoolManager {
                 info[8],
                 info[9],
                 info[10],
+                info[11],
                 name,
                 symbol,
                 poolDetails
@@ -626,6 +629,7 @@ contract PoolManager is OwnableUpgradeable, IPoolManager {
                 info[8],
                 info[9],
                 info[10],
+                info[11],
                 name,
                 symbol,
                 poolDetails

@@ -22,20 +22,20 @@ async function test() {
     // console.log('PairManager2 deployed to:', PairManager2.address);
 
     
-    // const pairFactory1 = await ethers.getContractFactory('PoolFactory');
-    // console.log('Deploying pairFactory1...');
+    const pairFactory1 = await ethers.getContractFactory('PoolFactory');
+    console.log('Deploying pairFactory1...');
 
-    // const pairFactory2 = await upgrades.deployProxy(pairFactory1,{ initializer: 'initialize' });
-    // await pairFactory2.deployed();
-    // console.log('pairFactory2 deployed to:', pairFactory2.address);
+    const pairFactory2 = await upgrades.deployProxy(pairFactory1,{ initializer: 'initialize' });
+    await pairFactory2.deployed();
+    console.log('pairFactory2 deployed to:', pairFactory2.address);
 
     // PinkLocker = await (await ethers.getContractFactory("PinkLocker")).deploy();
     // console.log("PinkLocker deployed to:", PinkLocker.address);
     // expect(PinkLocker.address).to.exist;
 
-    USDC = await (await ethers.getContractFactory("USDC")).deploy();
-    console.log("USDC deployed to:", USDC.address);
-    expect(USDC.address).to.exist;
+    // USDC = await (await ethers.getContractFactory("USDC")).deploy();
+    // console.log("USDC deployed to:", USDC.address);
+    // expect(USDC.address).to.exist;
 
 }
 
