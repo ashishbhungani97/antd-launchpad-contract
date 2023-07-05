@@ -83,15 +83,15 @@ module.exports = {
     },
     // testnet: {
     //   url: `https://data-seed-prebsc-2-s2.binance.org:8545`,
-    //   accounts: [""]
+    //   accounts: []
     // },
     // ftmtest: {
     //   url: `https://rpc.testnet.fantom.network/`,
-    //   accounts: [""]
+    //   accounts: []
     // },
     avax : {
       url : "https://api.avax-test.network/ext/bc/C/rpc",
-      accounts : ["0b004dfa8a84bbb60e7c673015b8c2068b0bb2a3fad46efbe94bbe4a09d8fbc1"]
+      accounts : []
     }
   },
   etherscan: {
